@@ -35,7 +35,11 @@ export class AddCandidateComponent implements OnInit{
         this.mainForm();
     }
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.portalService.channel.bind('new-notification', data => {
+            console.log(data.message);
+        })
+    }
     mainForm(){
         this.AddCandidate = this.fb.group({
             surname: [],
@@ -56,10 +60,9 @@ export class AddCandidateComponent implements OnInit{
         if(!this.AddCandidate.valid){
             return false
         }else{
-           this.portalService.addCanidate(this.AddCandidate.value).subscribe(data => {
+           this.portalService.addCandidate(this.AddCandidate.value).subscribe(data => {
             if(data){
-                console.log(data);
-                
+                console.log(data); 
             }
             else{
                 console.log('Invalid')
@@ -77,7 +80,7 @@ export class AddCandidateComponent implements OnInit{
             accessorname: '',
             accessoremail: '',
             university: '',
-            status: 'invitationsent'
+            status: 'invitation sent'
         })
     }
 

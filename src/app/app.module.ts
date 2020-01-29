@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { AddCandidateComponent } from './candidate/add-candidate.component';
 import { CandidateListComponent } from './candidate/candidate-list.component';
 import { EditComponent } from './candidate/edit-candidate.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -24,7 +25,8 @@ import { EditComponent } from './candidate/edit-candidate.component';
     LoginComponent,
     AddCandidateComponent, 
     CandidateListComponent,
-    EditComponent
+    EditComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

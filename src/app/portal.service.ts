@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
+import { environment } from '../environments/environment';
+declare const Pusher: any;
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,17 @@ import { catchError, map} from 'rxjs/operators';
 export class PortalService {
   baseUrl = 'http://localhost:3000/api' 
   headers = new HttpHeaders().set('Content-Type', 'application/json')
+  public pusher: any;
+  public channel: any
 
   constructor(private http: HttpClient) {
-
+    this.pusher = new Pusher(environment.pusher.key, {
+      cluster: environment.pusher.cluster,
+      encrypted: true
+    });
+    this.channel = this.pusher.subscribe('notifications');
    }
-  
+   
    getCandidates(){
     return this.http.get(`${this.baseUrl}/candidates-list`);
    }
@@ -26,7 +34,13 @@ export class PortalService {
       catchError(this.errorMgmt)
       )
    }
-   addCanidate(data) :Observable<any>{
+   addCandidate(data) :Observable<any>{
+    //  const httpOptions = {
+    //    headers: new HttpHeaders({
+    //      'Authorization': '',
+    //      'Content-Type': 'application/json'
+    //    })
+    //  }
      let url = `${this.baseUrl}/add-candidate`;
       return this.http.post<any>(url, data)
       .pipe(catchError(this.errorMgmt)
