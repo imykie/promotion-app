@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { PortalService } from '../portal.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { PusherService } from '../pusher.service';
 
 
 @Component({
@@ -52,8 +53,6 @@ export class EditComponent implements OnInit{
         console.log(data)
     })        
     }
-
-    
     
 }
 
