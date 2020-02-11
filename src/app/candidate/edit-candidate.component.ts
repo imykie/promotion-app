@@ -42,6 +42,28 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
     .save-btn:hover{
        background-color: #3b0a9e
     }
+    .approved-btn{
+        background-color: #17A05D;
+        border: 0;
+        outline: 0;
+        color: #fff;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+    .approved-btn:hover{
+       background-color: #0a8348;
+    }
+    .disproved-btn{
+        background-color: transparent;
+        border: solid 1px #DD1124;
+        outline: 0;
+        color: #fff;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+    .disproved-btn:hover{
+       background-color: #DD1124;
+    }
     `]
 })
 
@@ -99,7 +121,7 @@ export class EditComponent implements OnInit{
                 console.log("Something went wrong");
             }else{
                 console.log(data);
-                
+                alert(data.message);
             }
         })
     }
@@ -107,7 +129,12 @@ export class EditComponent implements OnInit{
     disproveCandidate(accessorId){
         let id = this.route.snapshot.params['id'];
         this.portalService.finalStatus(id, accessorId, false).subscribe(data => {
-            console.log(data);
+            if(!data){
+                console.log("Something went wrong");
+            }else{
+                console.log(data);
+                alert(data.message);
+            }
         })
     }
 

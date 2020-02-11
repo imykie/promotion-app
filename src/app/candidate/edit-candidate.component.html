@@ -1,4 +1,5 @@
 <nav-bard></nav-bard>
+<div class="home">
 <h3 class="text-white font-weight-lighter text-center mt-4">
     Edit Candidate
 </h3>
@@ -30,10 +31,16 @@
                 <div *ngIf="(accessor.status == 'invitation received')">
                     <button class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(accessor._id)">Send Papers</button>
                 </div>
-                <div *ngIf="(accessor.status == 'paper received')">
-                    <button class="ml-3 btn btn-success" (click)="approveCandidate(accessor._id)">Approved</button>
-                    <button class="ml-3 btn btn-danger" (click)="disproveCandidate(accessor._id)">Disproved</button>
+                <div *ngIf="(accessor.status == 'paper received' && !accessor.approved)">
+                    <button class="ml-3 px-4 py-3 approved-btn" (click)="approveCandidate(accessor._id)">Approved</button>
+                    <button class="ml-3 px-4 py-3 disproved-btn" (click)="disproveCandidate(accessor._id)">Disproved</button>
                 </div>
+                <div *ngIf="(accessor.approved)">
+                    <span><mat-icon [ngStyle]="{'color': '#33ff33'}" >verified_user</mat-icon> <span class="font-weight-bold pb-2 text-success">Approved</span></span>
+                </div>
+                <!-- <div *ngIf="(!accessor.approved)">
+                    <span><mat-icon class="pt-3" [ngStyle]="{'color': '#EB3941'}" >clear</mat-icon> <span class="font-weight-bold pb-2 text-danger">Disproved</span></span>
+                </div> -->
             </div>
         </div>
     </div>
@@ -42,3 +49,4 @@
         <button  class="save-btn py-3 px-5 ml-4 mr-5" type="submit" (click)="saveUpdate()">save and continue</button> 
     </div>
 </form>
+</div>

@@ -1,2 +1,11 @@
-<p>verify-invite works!</p>
-<h5>{{ message }}</h5>
+<nav-bard></nav-bard>
+<div class="home" style="height: 100vh;">
+    <mat-card *ngIf="isLoading" 
+    style="display: flex; background-color: #00042c; justify-content: center; align-items: center">
+    <mat-progress-spinner 
+      color="primary" 
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </mat-card>
+    <h4 class="font-weight-lighter ml-4 mt-4 text-center text-white">{{ message }}</h4>
+</div>

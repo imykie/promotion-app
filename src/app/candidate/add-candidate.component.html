@@ -49,11 +49,11 @@
                 <input type="date" class="form-control ctrl-bg mx-auto input-sm"  name="date" placeholder="Required" formControlName="date">
              </div> -->
 
-        <div class="py-5">
+        <!-- <div class="py-5">
             <hr class="bg-light w-90" />
-        </div>
-        <div class="cont-w mx-auto">
-            <h5 class="text-white font-weight-lighter mb-4">Add Accessors</h5>
+        </div> -->
+        <div class="cont-w mx-auto mt-5">
+            <h4 class="text-white font-weight-lighter mb-4">Add Accessors</h4>
                 <div formArrayName="accessor" *ngFor="let access of accessor.controls; let i=index">
                     <div  [formGroupName]="i">
                                     <div class="mt-3">

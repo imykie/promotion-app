@@ -9,6 +9,7 @@ import { PortalService } from '../portal.service';
 })
 export class VerifyPapersComponent implements OnInit {
   public message: String;
+  public isLoading: Boolean = true;
 
   constructor(private portalService: PortalService, private route: ActivatedRoute, private router: Router) { }
 
@@ -22,6 +23,7 @@ export class VerifyPapersComponent implements OnInit {
     this.portalService.verifyPapers(id, accessorId).subscribe(data => {
       if(data){
         console.log(data);
+        this.isLoading = false;
         this.message = data.message;
         // if(!data.status){
         //   setTimeout(() => {this.router.navigate(['candidate-list'])} , 3500);  
@@ -35,7 +37,7 @@ export class VerifyPapersComponent implements OnInit {
       if(data){
         this.message = data.message;
         console.log(data.message, data.date);
-        setTimeout(() => {this.router.navigate(['candidate-list'])} , 3500);
+        setTimeout(() => {this.router.navigate(['candidate-list'])} , 10000);
       }else{
         this.message = "Something went wrong paper verification"
       }
