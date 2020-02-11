@@ -1,1 +1,37 @@
-<p>notifications works!</p>
+<nav-bard></nav-bard>
+
+<div class="mt-5 mx-auto">
+    <h3 class="font-weight-lighter text-white ml-5 pl-4">Notifications</h3>
+     <!-- <div class="mt-4 px-md-5 ctrl-width">
+        <p *ngFor="let notify of notifications" class="text-white font-size text-left">{{ notify.message +', '+ notify.date}}</p>
+    </div> -->
+</div>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element; let i = index"> <li></li> </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef> message </th>
+        <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> date </th>
+        <td mat-cell *matCellDef="let element"> {{ element.date | date: 'dd MMM yyyy, HH:mm' }} </td>
+      </ng-container>
+
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[20, 30, 40, 50, 60]" showFirstLastButtons></mat-paginator>
+  </div>

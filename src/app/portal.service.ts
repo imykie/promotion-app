@@ -60,12 +60,37 @@ export class PortalService {
     )
    }
 
-   postNotifications(){
-     
+   getAccessor(id, accessorId){
+    let url = `${this.baseUrl}/get-accessor/${id}?accessorId=${accessorId}`;
+    return this.http.get(url,{headers:this.headers}).pipe(catchError(this.errorMgmt))
+   }
+
+   verifyInvite(id, accessorId): Observable<any>{
+     let url = `${this.baseUrl}/verify-invite/${id}?accessorId=${accessorId}`;
+     return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+   }
+
+
+   sendPapers(id, accessorId): Observable<any>{
+    let url = `${this.baseUrl}/send-papers/${id}?accessorId=${accessorId}`;
+    return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+  }
+
+   verifyPapers(id, accessorId): Observable<any>{
+    let url = `${this.baseUrl}/verify-papers/${id}?accessorId=${accessorId}`;
+    return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+   }
+   notifications(){
+    return this.http.get(`${this.baseUrl}/notifications`);
+   }
+
+   finalStatus(id, accessorId, status):Observable<any>{
+    let url = `${this.baseUrl}/final-status/${id}?accessorId=${accessorId}&status=${status}`;
+    return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
    }
    
    errorMgmt(error: HttpErrorResponse) {
-    let errorMessage = '';
+    let errorMessage = "";
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;

@@ -1,0 +1,37 @@
+.font-size{
+    font-size: 14px;
+}
+.ctrl-width{
+    width: 80%;
+    margin: auto;
+}
+table {
+    width: 100%;
+  }
+.mat-row:nth-child(even){
+    background-color: #020530;
+    }
+
+.mat-row:nth-child(odd){
+    background-color: #00042c;  
+}
+.mat-cell {
+    color: white;
+}
+th{
+    background-color: #020530;
+    color: #fff;
+    font-size: 16px;
+}
+mat-paginator{
+    background-color: #020530;
+    color: #fff;
+    width:100%;
+}
+::ng-deep .mat-select-arrow {
+    color: #fff;
+}
+::ng-deep .mat-select-value {
+    color: #fff;
+      font-size: 15px;
+  }

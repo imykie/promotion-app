@@ -1,28 +1,44 @@
-
-
-<h1>
+<nav-bard></nav-bard>
+<h3 class="text-white font-weight-lighter text-center mt-4">
     Edit Candidate
-</h1>
-<h6>{{candidate.other}}</h6>
-<h6>{{candidate.email}}</h6>
-<h6>{{candidate.fac}}</h6>
+</h3>
+
+<div class="ml-sm-4 ml-md-5 mb-4">
+    <h4 class="text-white font-weight-bold text-capitalize space-text">{{candidate.surname+' '+candidate.other}}</h4>
+    <p class="text-light font-weight-lighter ctrl-font mb-0">{{candidate.email}}</p>
+    <p class="text-light font-weight-lighter ctrl-font">{{candidate.fac}}</p>
+</div>
+
 
 <form >
-    <div  *ngFor="let accessor of accessors">
-        <li>{{accessor.name}}</li>
-        <div >
-            <input type="text"  value="{{accessor.name}}" name="name" /><br><br>
-            <input type="text" value="{{accessor.email}}" name="email"/><br><br>
-            <input type="text" value="{{accessor.university}}" name="university" /><br><br>
-            <input type="text" value="{{accessor.status}}" name="status" /><br><br>
-            <input type="radio" [(ngModel)]="accessor.status" name="status" value="invitationsent" />Invitation Sent<br><br>
-            <input type="radio" [(ngModel)]="accessor.status" name="status" value="applicationrecieved" />Application received<br><br>
-            <input type="radio" [(ngModel)]="accessor.status" name="status" value="papersent" />Paper Sent<br><br>
-            <input type="radio" [(ngModel)]="accessor.status" name="status" value="paperrecieved" />Paper received<br><br>
-
-        </div>
+    <div class="row px-5">
+        <div class="col-sm-12 col-md-4 px-4" *ngFor="let accessor of accessors">
+            <div>
+                <!-- <p>{{accessor.accessorname}}</p> -->
+                <div >
+                    <input class="form-control mt-3" type="text"  value="{{accessor.accessorname}}" name="name" />
+                    <input class="form-control mt-3" type="text" value="{{accessor.university}}" name="email"/>
+                    <input class="form-control mt-3" type="text" value="{{accessor.accessoremail}}" name="university" />
+                    <input class="form-control mt-3" type="text" value="{{accessor.status}}" name="status" /><br><br>
+                    <input class="" type="radio" [(ngModel)]="accessor.status" name="status" value="invitation sent"/><span class="text-white ctrl-font ml-2">Invitation sent</span> <br><br>
+                    <input class="" type="radio" [(ngModel)]="accessor.status" name="status" value="invitation received"/><span class="text-white ctrl-font ml-2">Invitation received</span> <br><br>
+                    <input class="" type="radio" [(ngModel)]="accessor.status" name="status" value="paper sent"/> <span class="text-white ctrl-font ml-2">Paper sent</span><br><br>
+                    <input class="" type="radio" [(ngModel)]="accessor.status" name="status" value="paper received"/> <span class="text-white ctrl-font ml-2">Paper received</span> <br><br>
         
+                </div>
+                
+                <div *ngIf="(accessor.status == 'invitation received')">
+                    <button class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(accessor._id)">Send Papers</button>
+                </div>
+                <div *ngIf="(accessor.status == 'paper received')">
+                    <button class="ml-3 btn btn-success" (click)="approveCandidate(accessor._id)">Approved</button>
+                    <button class="ml-3 btn btn-danger" (click)="disproveCandidate(accessor._id)">Disproved</button>
+                </div>
+            </div>
+        </div>
     </div>
     
-     <button  class="btn btn-danger" type="submit" (click)="saveUpdate()">Update</button> 
+    <div class="text-right py-5">
+        <button  class="save-btn py-3 px-5 ml-4 mr-5" type="submit" (click)="saveUpdate()">save and continue</button> 
+    </div>
 </form>

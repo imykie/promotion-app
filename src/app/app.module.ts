@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-
+import { MaterialModule } from './material.module';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,9 @@ import { AddCandidateComponent } from './candidate/add-candidate.component';
 import { CandidateListComponent } from './candidate/candidate-list.component';
 import { EditComponent } from './candidate/edit-candidate.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { VerifyInviteComponent } from './verify-invite/verify-invite.component';
+import { VerifyPapersComponent } from './verify-papers/verify-papers.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -26,7 +30,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
     AddCandidateComponent, 
     CandidateListComponent,
     EditComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    VerifyInviteComponent,
+    VerifyPapersComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +40,15 @@ import { NotificationsComponent } from './notifications/notifications.component'
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
     
   ],
   providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     AuthService,
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

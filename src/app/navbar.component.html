@@ -1,4 +1,6 @@
-<div class="row rock">
+<div class="">
+<!-- <div class="row rock">
+        
     <div class="col-md-2">
             <ul class="nav justify-content-center">
                     <li class="nav-item">
@@ -7,7 +9,7 @@
            </ul>                
     </div>
         <div  class="col-md-8">
-                <ul class="nav justify-content-center">
+                <ul class="nav justify-content-right">
                         <li class="nav-item">
                           <a class="nav-link" [routerLink]="['/addCandidate']">Add Candidate</a>
                         </li>
@@ -15,7 +17,7 @@
                           <a class="nav-link" [routerLink]="['/candidate-list']">View Candidates</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Notifications</a>
+                          <a class="nav-link" [routerLink]="['/notifications']">Notifications</a>
                         </li>
                  </ul>
                 
@@ -28,8 +30,32 @@
               </ul>
           
         </div>
-</div>
+</div> -->
 
- 
+      <nav class="navbar navbar-dark navbar-expand-md pt-4" style="background-color: #00042c">
+        <a class="navbar-brand ml-3 " href="#">A & PC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+            <ul class="navbar-nav mx-auto text-md-center text-left">
+                <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/addCandidate']">Add Candidate</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/candidate-list']">View Candidates</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/notifications']">Notifications</a>
+                      </li>
+            </ul>
+            <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 

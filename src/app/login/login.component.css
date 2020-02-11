@@ -27,3 +27,7 @@ em{
     float: right;;
     padding-left: 10pxs;
     }
+
+    .save-btn:hover{
+        background-color: #990a0a
+     }

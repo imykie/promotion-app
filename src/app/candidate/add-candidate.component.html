@@ -1,75 +1,75 @@
 
 <div class="cand"> 
-    <h2>Add Candidate</h2>
-    <form [formGroup]="AddCandidate" (ngSubmit)="onSubmit()" novalidate>
-        <div class="row">
-                <div class="form-group col-md-4 offset-2"> 
-                        <input type="text" class="form-control"   formControlName="surname" placeholder="surname">
+    <nav-bard></nav-bard>
+    <form [formGroup]="AddCandidate" class="mx-auto" (ngSubmit)="onSubmit()" novalidate>
+        <div class="cont-w mx-auto mt-5">
+            <h3 class="text-white font-weight-lighter mb-4">Add Candidate</h3>
+
+                <div class="form-group"> 
+                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="surname" placeholder="Surname">
                     </div>
-                    <div class="form-group col-md-4"> 
-                        <input type="text" class="form-control"   formControlName="other" placeholder="other">
+                    <div class="form-group"> 
+                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="other" placeholder="Other Names">
              </div>
-        </div>
-        <div class="row">
-                <div class="form-group col-md-4 offset-2"> 
-                        <input type="email" class="form-control"  formControlName="email" placeholder="email">
+        
+                <div class="form-group "> 
+                        <input type="email" class="form-control ctrl-bg mx-auto"  formControlName="email" placeholder="Email">
                 </div>
-                <div class="form-group col-md-4"> 
-                        <input type="number" class="form-control" formControlName="number" placeholder="Phone no..">
+                <div class="form-group"> 
+                        <input type="number" class="form-control ctrl-bg mx-auto" formControlName="number" placeholder="Phone number">
                  </div>
-        </div>
-        <div class="row"> 
-                <div class="form-group col-md-4 offset-2">
-                        <select class="custom-select" (change)="changeFaculty($event.target.value)" formControlName="fac">
+                 <div class="mx-auto">
+                    <div class="form-group selectCenter">
+                        <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeFaculty($event.target.value)" formControlName="fac">
                             <option [ngValue]="null" disabled>Faculty</option>
                             <option *ngFor="let faculty of Faculty" value="{{faculty}}">{{faculty}}</option>
                         </select>
-                </div>
-        </div> 
-        <div class="row">
-                <div class="form-group col-md-4 offset-2">
-                        <select class="custom-select" (change)="changeDepartment($event.target.value)" formControlName="dep">
-                            <option [ngValue]="null" disabled>Department</option>
-                            <option *ngFor="let department of Department" value="{{department}}">{{department}}</option>
-                        </select>
+                    </div>
+            
+                    <div class="form-group selectCenter">
+                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeDepartment($event.target.value)" formControlName="dep">
+                                <option [ngValue]="null" disabled>Departments</option>
+                                <option *ngFor="let department of Department" value="{{department}}">{{department}}</option>
+                            </select>
+                    </div>
+                        
+            
+            
+                    <div class="form-group selectCenter">
+                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeLevel($event.target.value)" formControlName="lev">
+                                <option [ngValue]="null" disabled>Level</option>
+                                <option *ngFor="let level of Level" value="{{level}}">{{level}}</option>
+                            </select>
+                    </div>
                  </div>
-        </div>       
-                    
-        
-        <div class="row">
-                <div class="form-group col-md-4 offset-2">
-                        <select class="custom-select" (change)="changeLevel($event.target.value)" formControlName="lev">
-                            <option [ngValue]="null" disabled>Level</option>
-                            <option *ngFor="let level of Level" value="{{level}}">{{level}}</option>
-                        </select>
-                 </div>
+                
         </div>
-        <div class="row">
-            <div class="form-group col-md-4 offset-2">
-                <input type="date" class="form-control input-sm"  name="date" placeholder="Required" formControlName="date">
-             </div>
-    </div>
-        <div>
-            <hr>
-        </div>      
-            <h5>Add Accessors</h5>
+        
+            <!-- <div class="form-group col-md-4 offset-2">
+                <input type="date" class="form-control ctrl-bg mx-auto input-sm"  name="date" placeholder="Required" formControlName="date">
+             </div> -->
+
+        <div class="py-5">
+            <hr class="bg-light w-90" />
+        </div>
+        <div class="cont-w mx-auto">
+            <h5 class="text-white font-weight-lighter mb-4">Add Accessors</h5>
                 <div formArrayName="accessor" *ngFor="let access of accessor.controls; let i=index">
                     <div  [formGroupName]="i">
-                        <div class="row">
-                                    <div class="form-group col-md-4 offset-2">
-                                        <input class="form-control" type="text" id="{{ 'accessId' + i }}" placeholder="Accessor name" formControlName="accessorname"> 
+                                    <div class="mt-3">
+                                        <input class="form-control ctrl-bg mx-auto" type="text" id="{{ 'accessId' + i }}" placeholder="Accessor name" formControlName="accessorname"> 
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <input class="form-control" type="email" placeholder="Email..." formControlName="accessoremail">
+                                    <div class="mt-3">
+                                        <input class="form-control ctrl-bg mx-auto" type="email" placeholder="Email" formControlName="accessoremail">
                                     </div>
-                        </div>
-                        <div class="row">
-                                <div class="form-group col-md-4 offset-2">
-                                        <input class="form-control"  type="text" placeholder="University" formControlName="university">
+                                    <div class="mt-3">
+                                        <input class="form-control ctrl-bg mx-auto" type="number" placeholder="Phone number" formControlName="accessoremail">
+                                    </div>
+                                <div class="mt-3">
+                                        <input class="form-control ctrl-bg mx-auto"  type="text" placeholder="University" formControlName="university">
                                 </div>
-                        </div>
-                        <div class="col-md-4 offset-2">
-                                    <div class="form-group">
+                        <div class="mt-5 w-75">
+                                    <!-- <div class="form-group">
                                         <input type="radio"  class="form-check-input" value="invitation sent" formControlName="status" >Invitation sent
                                     </div>
                                     <div class="form-group">
@@ -80,26 +80,47 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="radio" class="form-check-input" value="paper received"  formControlName="status" >Paper received
-                                    </div>
+                                    </div> -->
+                                    <!-- <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="optradio" value="invitation sent" formControlName="status"><span class="text-white ctrl-font ml-2">Invitation sent</span>
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="optradio" value="invitation received" formControlName="status"><span class="text-white ctrl-font ml-2">Invitation received</span>
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="optradio" value="paper sent" formControlName="status"><span class="text-white ctrl-font ml-2">Papers sent</span>
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="optradio" value="paper received"  formControlName="status"><span class="text-white ctrl-font ml-2">Papers received</span>
+                                        </label>
+                                      </div> -->
+                                    
                         </div>                      
                         
                     </div>
-                </div>    
-                <div class="row mb-5">
-                        <div class="col-md-4 offset-2">
-                                <button [hidden]="accessor.length >= 3" type="button" class="btn btn-primary" (click)="addAccessors()">Add Another Accessor </button>
+                </div>
+        </div>     
+
+                <div class="mt-4 mb-5">
+                        <div class="text-center">
+                                <button [hidden]="accessor.length >= 3" type="button" class="add-accessor py-3 px-5" (click)="addAccessors()">Add Another Accessor </button>
                         </div>
                 </div> 
                     
         
-        <div class="form-group row">
-            <div class="col-md-4 offset-2">
-                    <button id="but2" type="button" (click)="back()" class="btn btn-md ">Cancel Registration</button>
-            </div>
-           <div class="col-md-4">
-                <button id="but" type="submit" class="btn btn-md ">Save Candidate</button>
-           </div>
+        <div class="text-right">
+            <div class="pb-5">
+                    <button type="button" (click)="back()" class="cancel-btn py-3 px-5">Cancel Registration</button>
             
+                <button type="submit" class="save-btn py-3 px-5 ml-4 mr-5">Save</button>
+           </div>
         </div>
         
     </form>
