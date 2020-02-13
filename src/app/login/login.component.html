@@ -19,6 +19,9 @@
             <button type="submit" class="btn btn-primary btn-md btn-block" [disabled]="Portal.invalid"> Sign In</button>
         </div>
       </span>
+      <div *ngIf="InvalidLogin" class="alert alert-danger">
+        Invalid Username and Password
+      </div>
       </form>
 </div>
 

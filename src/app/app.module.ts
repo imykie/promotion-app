@@ -18,6 +18,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { VerifyInviteComponent } from './verify-invite/verify-invite.component';
 import { VerifyPapersComponent } from './verify-papers/verify-papers.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth.guard';
+import { Firstletter } from './firstletter.pipe';
 
 
 
@@ -32,7 +34,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EditComponent,
     NotificationsComponent,
     VerifyInviteComponent,
-    VerifyPapersComponent
+    VerifyPapersComponent,
+    AuthGuard,
+    Firstletter
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     AuthService,
+    AuthGuard,
+    Firstletter
+    
   ],
   bootstrap: [AppComponent]
 })
