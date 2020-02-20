@@ -35,7 +35,6 @@ import { Firstletter } from './firstletter.pipe';
     NotificationsComponent,
     VerifyInviteComponent,
     VerifyPapersComponent,
-    AuthGuard,
     Firstletter
   ],
   imports: [

@@ -10,39 +10,48 @@ export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser: IUser;
 
-  constructor(private http: HttpClient){
+constructor(private http : HttpClient){
 
+}
+
+ isLoggedIn(): boolean{
+    let userData = sessionStorage.getItem('userInfo')
+    if(userData && JSON.parse(userData)){
+      return true;
+    }
+    return false;
   }
 
-    isLoggedIn() {
-      let userData = sessionStorage.getItem('userInfo');
-      if(userData && JSON.parse(userData)){
-        return true;
-      }
-      return false;
-    }
+  setUserInfo(user){
+    sessionStorage.setItem('userInfo', JSON.stringify(user))
+  }
 
-    setUserInfo(user){
-      sessionStorage.setItem('userinfo', JSON.stringify(user))
-    }
-
-    removeUser(){
-      sessionStorage.removeItem('userinfo');
-    }
-
+  removeUserInfo(){
+    sessionStorage.removeItem('userInfo')
+  }
 
   loginUser(username: string, password: string) {
-    let logInfo = {username: username, password: password }
-    return this.http.post(`this.baseUrl/login`, logInfo, {headers :this.headers})
+   let logInfo = {username: username, password: password }
+   return this.http.post(`${this.baseUrl}/login`, logInfo, {headers: this.headers})
+   .pipe(tap(data=> {
+    this.currentUser = <IUser>data['user'];
+   }))
+   .pipe(catchError(err => {
+     return of(false)
+   }))
+  }
+
+  checkAuthenticationStatus(id:IUser): any{
+  return this.http.get(`${this.baseUrl}/login/${id}`, {headers: this.headers})
     .pipe(tap(data => {
-      this.currentUser = <IUser>data['user'];
-    }))
-    .pipe(catchError(err => {
-      return of(false)
+      if(data instanceof Object){
+        this.currentUser = <IUser>data;
+      }
     }))
   }
 
   logOut(){
-    this.removeUser();
+    this.removeUserInfo();
   }
+
 }

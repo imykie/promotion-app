@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { PortalService } from '../portal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 // import { PusherService } from '../pusher.service';
 
@@ -74,7 +74,8 @@ export class EditComponent implements OnInit{
 
 
     constructor(private portalService: PortalService,
-        private route : ActivatedRoute, private fb: FormBuilder
+        private route : ActivatedRoute, private fb: FormBuilder,
+        private router : Router
         ){
 
     }
@@ -141,6 +142,7 @@ export class EditComponent implements OnInit{
     saveUpdate(){
         let id = this.route.snapshot.paramMap.get('id')
     this.portalService.updateCandidate(id, this.accessors).subscribe((data)=> {
+        this.router.navigate(['candidate-list'])
         console.log(data)
     })        
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, FormArray} from '@angular/forms'
+import {FormGroup, FormBuilder, FormArray, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { PortalService } from '../portal.service';
 
@@ -167,7 +167,7 @@ export class AddCandidateComponent implements OnInit{
         'Surgery',
         'Urban and Regional Planning',
         'Zoology'];
-    Level: any = ['Lecuturer I', 'Lecturer II', ' Senior Lecturer I', 'Senior Lecturer II', 'Reader'];
+    Level: any = ['Graduate Assistant','Lecuturer I', 'Lecturer II', ' Senior Lecturer', 'Reader/Associcate Professor', 'Professor'];
     Faculty: any = ['Faculty of Agriculture','Faculty of Administration','Faculty of Law','Faculty of  Pharmacy','Faculty of Sciences',
     'Faculty of Technology',  'Faculty of Art','Faculty of Social-Sciences','Faculty of Enviromental Design and Management', 'Faculty of  Basic Medical Sciences',
     'Faculty of Clinical Sciences','Faculty of Dentistry', 'Faculty of Education'];
@@ -188,14 +188,14 @@ export class AddCandidateComponent implements OnInit{
     }
     mainForm(){
         this.AddCandidate = this.fb.group({
-            surname: [],
-            other: [],
-            email: [],
-            number: [],
-            fac: [],
-            dep: [],
-            lev: [],
-            // date: [],
+            surname: ['', Validators.required],
+            other: ['',  Validators.required],
+            email: ['',  Validators.required],
+            number: ['',  Validators.required],
+            fac: ['',  [Validators.required]],
+            dep: ['',   Validators.required],
+            lev: ['',  Validators.required],
+            date: ['', Validators.required],
             accessor: this.fb.array([ this.buildAccessors() ])
         })  
     }
@@ -223,28 +223,29 @@ export class AddCandidateComponent implements OnInit{
 
     buildAccessors(): FormGroup{
         return this.fb.group({
-            accessorname: '',
-            accessoremail: '',
-            university: '',
-            status: 'invitation sent'
+            accessorname:  ['', Validators.required],
+            accessoremail:  ['', Validators.required],
+            university:  ['', Validators.required],
+            status: 'invitationsent'
         })
     }
 
     changeFaculty(e) {
-        this.AddCandidate.get('fac').setValue(e.target.value, {
+        this.AddCandidate.get('fac').setValue(e, {
          onlySelf: true
         })
        }
     changeDepartment(e) {
-        this.AddCandidate.get('dep').setValue(e.target.value, {
+        this.AddCandidate.get('dep').setValue(e, {
          onlySelf: true
         })
        }
      changeLevel(e) {
-        this.AddCandidate.get('lev').setValue(e.target.value, {
+        this.AddCandidate.get('lev').setValue(e, {
          onlySelf: true
         })
      }
+
 
      addAccessors(): void{
         this.accessor.push(this.buildAccessors());

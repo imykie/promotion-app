@@ -6,40 +6,82 @@
             <h3 class="text-white font-weight-lighter mb-4">Add Candidate</h3>
 
                 <div class="form-group"> 
-                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="surname" placeholder="Surname">
+                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="surname" placeholder="Surname"
+                        [ngClass]="{'is-invalid':(AddCandidate.get('surname').touched || AddCandidate.get('surname').dirty) && !AddCandidate.get('surname').valid}">
+                        <span class="invalid-feedback">
+                            <span *ngIf="AddCandidate.get('surname').errors?.required">
+                              Please enter the candidate's  surname
+                            </span>
+                          </span>
                     </div>
                     <div class="form-group"> 
-                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="other" placeholder="Other Names">
+                        <input type="text" class="form-control ctrl-bg mx-auto"   formControlName="other" placeholder="Other Names"
+                        [ngClass]="{'is-invalid':(AddCandidate.get('other').touched || AddCandidate.get('other').dirty) && !AddCandidate.get('other').valid}">
+                        <span class="invalid-feedback">
+                            <span *ngIf="AddCandidate.get('other').errors?.required">
+                              Please enter the candidate's other name
+                            </span>
+                          </span>
              </div>
         
                 <div class="form-group "> 
-                        <input type="email" class="form-control ctrl-bg mx-auto"  formControlName="email" placeholder="Email">
+                        <input type="email" class="form-control ctrl-bg mx-auto"  formControlName="email" placeholder="Email"
+                        [ngClass]="{'is-invalid':(AddCandidate.get('email').touched || AddCandidate.get('email').dirty) && !AddCandidate.get('email').valid}">
+                        <span class="invalid-feedback">
+                            <span *ngIf="AddCandidate.get('email').errors?.required">
+                              Please enter the candidate's email address
+                            </span>
+                          </span>
                 </div>
                 <div class="form-group"> 
-                        <input type="number" class="form-control ctrl-bg mx-auto" formControlName="number" placeholder="Phone number">
+                        <input type="number" class="form-control ctrl-bg mx-auto" formControlName="number" placeholder="Phone number"
+                        [ngClass]="{'is-invalid':(AddCandidate.get('number').touched || AddCandidate.get('number').dirty) && !AddCandidate.get('number').valid}">
+                        <span class="invalid-feedback">
+                            <span *ngIf="AddCandidate.get('number').errors?.required">
+                              Please enter the candidate's email address
+                            </span>
+                          </span>
                  </div>
                  <div class="mx-auto">
                     <div class="form-group selectCenter">
-                        <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeFaculty($event.target.value)" formControlName="fac">
-                            <option [ngValue]="null" disabled>Faculty</option>
+                        <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeFaculty($event.target.value)" formControlName="fac"
+                        [ngClass]="{'is-invalid':(AddCandidate.get('fac').touched || AddCandidate.get('fac').dirty) && !AddCandidate.get('fac').valid}">
+                        <option value="" disabled>Choose Faculty...</option>
                             <option *ngFor="let faculty of Faculty" value="{{faculty}}">{{faculty}}</option>
                         </select>
+                        <span class="invalid-feedback">
+                            <span *ngIf="AddCandidate.get('fac').errors?.required">
+                              Please enter the candidate's Faculty
+                            </span>
+                          </span>
                     </div>
             
                     <div class="form-group selectCenter">
-                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeDepartment($event.target.value)" formControlName="dep">
-                                <option [ngValue]="null" disabled>Departments</option>
+                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeDepartment($event.target.value)" formControlName="dep"
+                            [ngClass]="{'is-invalid':(AddCandidate.get('dep').touched || AddCandidate.get('dep').dirty) && !AddCandidate.get('dep').valid}">
+                            <option value="" disabled>Choose Department.</option>
                                 <option *ngFor="let department of Department" value="{{department}}">{{department}}</option>
                             </select>
+                            <span class="invalid-feedback">
+                                <span *ngIf="AddCandidate.get('dep').errors?.required">
+                                  Please enter the candidate's Department
+                                </span>
+                              </span>
                     </div>
                         
             
             
                     <div class="form-group selectCenter">
-                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeLevel($event.target.value)" formControlName="lev">
-                                <option [ngValue]="null" disabled>Level</option>
+                            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeLevel($event.target.value)" formControlName="lev"
+                            [ngClass]="{'is-invalid':(AddCandidate.get('dep').touched || AddCandidate.get('dep').dirty) && !AddCandidate.get('dep').valid}">
+                            <option value="" disabled>Choose Level...</option>
                                 <option *ngFor="let level of Level" value="{{level}}">{{level}}</option>
                             </select>
+                            <span class="invalid-feedback">
+                                <span *ngIf="AddCandidate.get('dep').errors?.required">
+                                  Please enter the candidate's Department
+                                </span>
+                              </span>
                     </div>
                  </div>
                 
@@ -57,16 +99,36 @@
                 <div formArrayName="accessor" *ngFor="let access of accessor.controls; let i=index">
                     <div  [formGroupName]="i">
                                     <div class="mt-3">
-                                        <input class="form-control ctrl-bg mx-auto" type="text" id="{{ 'accessId' + i }}" placeholder="Accessor name" formControlName="accessorname"> 
+                                        <input class="form-control ctrl-bg mx-auto" type="text" id="{{ 'accessId' + i }}" placeholder="Accessor name" formControlName="accessorname"
+                                        [ngClass]="{'is-invalid':(access.get('accessorname').touched || access.get('accessorname').dirty) && !access.get('accessorname').valid}">
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="access.get('accessorname').errors?.required">
+                                              Please enter the candidate's Accessor Name
+                                            </span>
+                                          </span> 
                                     </div>
                                     <div class="mt-3">
-                                        <input class="form-control ctrl-bg mx-auto" type="email" placeholder="Email" formControlName="accessoremail">
+                                        <input class="form-control ctrl-bg mx-auto" type="email" placeholder="Email" formControlName="accessoremail"
+                                        [ngClass]="{'is-invalid':(access.get('accessoremail').touched || access.get('accessoremail').dirty) && !access.get('accessoremail').valid}">
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="access.get('accessoremail').errors?.required">
+                                              Please enter the candidate's Accessor Email
+                                            </span>
+                                          </span>
                                     </div>
                                     <div class="mt-3">
-                                        <input class="form-control ctrl-bg mx-auto" type="number" placeholder="Phone number" formControlName="accessoremail">
+                                        <input class="form-control ctrl-bg mx-auto" type="number" placeholder="Phone number" formControlName="accessoremail"
+                                        >
+                                        
                                     </div>
                                 <div class="mt-3">
-                                        <input class="form-control ctrl-bg mx-auto"  type="text" placeholder="University" formControlName="university">
+                                        <input class="form-control ctrl-bg mx-auto"  type="text" placeholder="University" formControlName="university"
+                                        [ngClass]="{'is-invalid':(access.get('university').touched || access.get('university').dirty) && !access.get('university').valid}">
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="access.get('university').errors?.required">
+                                              Please enter the Accessor's University
+                                            </span>
+                                          </span>
                                 </div>
                         <div class="mt-5 w-75">
                                     <!-- <div class="form-group">
@@ -119,7 +181,7 @@
             <div class="pb-5">
                     <button type="button" (click)="back()" class="cancel-btn py-3 px-5">Cancel Registration</button>
             
-                <button type="submit" class="save-btn py-3 px-5 ml-4 mr-5">Save</button>
+                <button type="submit" [disabled]="!AddCandidate.valid" class="save-btn py-3 px-5 ml-4 mr-5">Save</button>
            </div>
         </div>
         
