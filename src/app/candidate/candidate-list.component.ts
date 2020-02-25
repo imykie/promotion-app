@@ -145,12 +145,6 @@ export class CandidateListComponent implements OnInit{
 
         this.dataSource.paginator = this.paginator;
         // this.dataSource.sort = this.sort;
-
-        // const sortState: Sort = {active: 'date', direction: 'desc'};
-        // this.sort.active = sortState.active;
-        // this.sort.direction = sortState.direction;
-        // this.sort.sortChange.emit(sortState);
-
     }
 
     
@@ -162,22 +156,19 @@ export class CandidateListComponent implements OnInit{
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
 
-    setInterval(() => {
-        this.dataSource.sort = this.sort;
-      }, 2000);
+    // setInterval(() => {
+    //     this.dataSource.sort = this.sort;
+    //   }, 2000);
   }
 
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
       }
-    editCandidate(){
-        
+    editCandidate(){   
     }
-    sortDate(event: Event){
-        
+    sortDate(event: Event){      
     }
-    
 
     removeCandidate(candidate, i){
         if(window.confirm('Are you sure you want to delete this Candidate?')){
