@@ -193,7 +193,7 @@ export class AddCandidateComponent implements OnInit{
             fac: ['',  [Validators.required]],
             dep: ['',   Validators.required],
             lev: ['',  Validators.required],
-            date: ['', Validators.required],
+            // date: ['', Validators.required],
             accessor: this.fb.array([ this.buildAccessors() ])
         })
     }
@@ -201,7 +201,9 @@ export class AddCandidateComponent implements OnInit{
 
     onSubmit(){
         this.Submitted = true;
-        
+        // if(!this.AddCandidate.valid){
+        //     return false
+        // }else{
            this.portalService.addCandidate(this.AddCandidate.value).subscribe(data => {
             if(data){
                 console.log(data);
@@ -212,8 +214,8 @@ export class AddCandidateComponent implements OnInit{
             }
         },(error) => {
                console.log(error)
-           })
-        
+           }) 
+        // }
         console.log(this.AddCandidate.value)
         this.router.navigate(['candidate-list']);
         

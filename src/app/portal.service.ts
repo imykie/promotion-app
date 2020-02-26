@@ -25,7 +25,9 @@ export class PortalService {
    getCandidates(){
     return this.http.get(`${this.baseUrl}/candidates-list`);
    }
-
+   dashCandidates(){
+    return this.http.get(`${this.baseUrl}/candidates-dash`);
+   }
    getCandidate(id): Observable<any>{
     return this.http.get(`${this.baseUrl}/candidate/${id}`, {headers: this.headers})
     .pipe(map((res)=> {
@@ -82,6 +84,10 @@ export class PortalService {
    }
    notifications(){
     return this.http.get(`${this.baseUrl}/notifications`);
+   }
+
+   notificationsDash(){
+    return this.http.get(`${this.baseUrl}/notifications-dash`);
    }
 
    finalStatus(id, accessorId, status):Observable<any>{
