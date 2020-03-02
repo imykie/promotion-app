@@ -64,6 +64,58 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
     .disproved-btn:hover{
        background-color: #DD1124;
     }
+    .radio{
+        position: relative;
+        cursor: pointer;
+        line-height: 20px;
+        font-size: 16px;
+        margin: 15px;
+     }
+  
+  .label{
+        position: relative;
+        display: block;
+        float: left;
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #fff;
+        border-radius: 100%;
+        -webkit-tap-highlight-color: transparent;
+  }
+    
+    .label::after{
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        background: #fff;
+        transform: scale(0);
+        transition: all .5s ease;
+        opacity: .08;
+        pointer-events: none;
+    }
+      
+  .label:hover + .label::after{
+      transform: scale(3.6)
+    }
+        
+    
+    input[type="radio"]:checked + .label{
+            border-color:#fff;
+        }
+
+    input[type="radio"]:checked + .label::after{
+            transform: scale(1);
+            transition: all .5s cubic-bezier(.35,.9,.4,.9);
+            opacity: 1;
+    }
+    .hidden{
+    display: none;
+    }
     `]
 })
 
@@ -71,13 +123,15 @@ export class EditComponent implements OnInit{
     
     public candidate
     public accessors = [];
-
+    public accessorStatus = [
+        'invitation sent', 'invitation received', 'paper sent', 'paper received'
+    ];
+    public show= 'invitation received';
 
     constructor(private portalService: PortalService,
         private route : ActivatedRoute, private fb: FormBuilder,
         private router : Router
         ){
-
     }
 
     ngOnInit(){
@@ -91,7 +145,7 @@ export class EditComponent implements OnInit{
         this.portalService.getCandidate(id)
         .subscribe((data) => {
             this.candidate = data;
-            data.accessor.forEach(element => {
+            data.accessor.map(element => {
                 this.accessors.push(element);
             });
             console.log(this.accessors[0].name, this.accessors[1].name);
@@ -110,7 +164,6 @@ export class EditComponent implements OnInit{
                 console.log("Something went wrong");
             }else{
                 console.log(data);
-                
             }
         })
     }
