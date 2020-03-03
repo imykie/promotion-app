@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { PortalService } from '../portal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // import { PusherService } from '../pusher.service';
 
 
@@ -120,50 +121,111 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 })
 
 export class EditComponent implements OnInit{
-    
-    public candidate
+    public EditCan : FormGroup;
+    public candidate;
     public accessors = [];
     public accessorStatus = [
         'invitation sent', 'invitation received', 'paper sent', 'paper received'
     ];
-    public show= 'invitation received';
+    public message;
+    public isLoading = false;
+    public isNotTimedout = false;
 
+    get accessor(): FormArray{
+        return <FormArray>this.EditCan.get('accessor');
+    }
     constructor(private portalService: PortalService,
         private route : ActivatedRoute, private fb: FormBuilder,
         private router : Router
         ){
+            this.candidate = this.route.snapshot.data['candidate']
     }
 
     ngOnInit(){
         this.portalService.channel.bind('updated', data => {
             console.log(data.message, data.date)
         })
-        this.getCandidate(this.route.snapshot.params['id']) 
+        this.getCandidate(this.route.snapshot.params['id']);
+
+        this.EditCan = this.fb.group({
+            accessor: this.fb.array([])
+        });
+        console.log("logging... "+this.EditCan.value)
     }
 
     getCandidate(id){
         this.portalService.getCandidate(id)
         .subscribe((data) => {
             this.candidate = data;
-            data.accessor.map(element => {
-                this.accessors.push(element);
-            });
-            console.log(this.accessors[0].name, this.accessors[1].name);
-            console.log(this.accessors)
+            // data.accessor.map(element => {
+            //     this.accessors.push(element);
+            // });
 
+            data.accessor.forEach(element => {
+                this.accessor.push(this.fb.group(element));
+                console.log(element);
+            })
 
-            // console.log(data)
-            // console.log(data.accessor[0].name)
+            // console.log(this.accessors[0].name, this.accessors[1].name);
+            // console.log(this.accessors)
+
+        })
+    }
+    acceptInvitation(accessorId){
+        this.isLoading = true;
+        let id = this.route.snapshot.params['id'];
+        this.portalService.verifyInvite(id, accessorId).subscribe(data => {
+            if(!data){
+                console.log("Something went wrong");
+            }else{
+                console.log(data);
+                this.isLoading = false;
+                this.isNotTimedout = true;
+                this.message = data.message;
+
+                setTimeout(() => {
+                    this.isNotTimedout = false;
+                    // this.ngOnInit();
+                }, 10000);
+            }
         })
     }
 
     sendPapers(accessorId){
+        this.isLoading = true;
         let id = this.route.snapshot.params['id'];
         this.portalService.sendPapers(id, accessorId).subscribe(data => {
             if(!data){
                 console.log("Something went wrong");
             }else{
                 console.log(data);
+                this.isLoading = false;
+                this.isNotTimedout = true;
+                this.message = data.message;
+
+                setTimeout(() => {
+                    this.isNotTimedout = false;
+                    // this.reloadComponent(id);
+                }, 10000);
+            }
+        })
+    }
+
+    verifyPapers(accessorId){
+        this.isLoading = true;
+        let id = this.route.snapshot.params['id'];
+        this.portalService.verifyPapers(id, accessorId).subscribe(data => {
+            if(!data){
+                console.log("Something went wrong");
+            }else{
+                console.log(data);
+                this.isLoading = false;
+                this.isNotTimedout = true;
+                this.message = data.message;
+
+                setTimeout(() => {
+                    this.isNotTimedout = false;
+                }, 10000);
             }
         })
     }
@@ -194,10 +256,28 @@ export class EditComponent implements OnInit{
 
     saveUpdate(){
         let id = this.route.snapshot.paramMap.get('id')
-    this.portalService.updateCandidate(id, this.accessors).subscribe((data)=> {
-        this.router.navigate(['candidate-list'])
-        console.log(data)
-    })        
+        this.portalService.updateCandidate(id, this.EditCan.value).subscribe((data)=> {
+            this.router.navigate(['candidate-list'])
+            console.log(data)
+        })        
+    }
+
+    // reloadComponent(candidateId) {
+    //     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    //     this.router.onSameUrlNavigation = 'reload';
+    //     this.router.navigate([`/edit-candidate/${candidateId}`]);
+    // }
+
+    getAccessorId(i){
+        // console.log(this.getControls()[i].value._id)
+        return this.getControls()[i].value._id;
+    }
+    getStatus(i){
+        // console.log(this.getControls()[i].value.status)
+        return this.getControls()[i].value.status
+    }
+    getControls(){
+        return (<FormArray>this.EditCan.get('accessor')).controls;
     }
     
 }

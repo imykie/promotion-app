@@ -4,39 +4,51 @@
     Edit Candidate
 </h3>
 
+<h4 class="font-weight-lighter ml-4 mt-4 text-center text-white" *ngIf="isNotTimedout">{{ message }}</h4>
+
 <div class="ml-sm-4 ml-md-5 mb-4">
-    <h4 class="text-white font-weight-bold text-capitalize space-text">{{candidate.surname+' '+candidate.other}}</h4>
+    <h4 class="text-white font-weight-bold text-capitalize space-text">{{candidate.surname +' '+candidate.other}}</h4>
     <p class="text-light font-weight-lighter ctrl-font mb-0">{{candidate.email}}</p>
     <p class="text-light font-weight-lighter ctrl-font">{{candidate.dep}} , {{candidate.fac}}</p>
 </div>
 
-
-<form class="container-fluid">
-    <div class="row px-5">
-        <div class="col-sm-12 col-md-4 px-4" *ngFor="let accessor of accessors; let i = index">
-            <div>
-                <!-- <p>{{accessor.accessorname}}</p> -->
-                <div >
-                    <input class="form-control mt-3" type="text"  value="{{accessor.accessorname}}" name="name" />
-                    <input class="form-control mt-3" type="text" value="{{accessor.university}}" name="email"/>
-                    <input class="form-control mt-3" type="text" value="{{accessor.accessoremail}}" name="university" />
-                    <input class="form-control mt-3" type="text" value="{{accessor.status}}" name="status" /><br><br>
+<form class="container-fluid" [formGroup]="EditCan" (ngSubmit)="saveUpdate()">
+    <div class="row px-5" formArrayName="accessor">
+        <div class="col-sm-12 col-md-4 px-4" *ngFor="let access of getControls(); let i = index">
+            <div [formGroupName]="i">
+                <div>
+                    <div class="form-group">
+                        <input class="form-control mt-3" type="text"  formControlName="accessorname" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control mt-3" type="email"  formControlName="accessoremail" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control mt-3" type="text"  formControlName="university" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control mt-3" type="text"  formControlName="phone" />
+                    </div>
+                    <!-- <input class="form-control mt-3" type="text"  value="{{accessor.accessorname}}" />
+                    <input class="form-control mt-3" type="text" value="{{accessor.university}}"/>
+                    <input class="form-control mt-3" type="text" value="{{accessor.accessoremail}}"/>
+                    <input class="form-control mt-3" type="text" value="{{accessor.status}}" /><br><br> -->
 
                     <!-- <input class="" type="radio" [name]="'status'+i" value="invitation sent" [(ngModel)]="accessor.status"/><span class="text-white ctrl-font ml-2">invitation sent</span> <br><br> -->
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" [name]="'status'+i" value="invitation sent" [(ngModel)]="accessor.status" class="hidden"/>
+                        <input type="radio" formControlName="status" value="invitation sent" class="hidden"/>
                         <span class="label"></span> Invitation sent
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" [name]="'status'+i" value="invitation received" [(ngModel)]="accessor.status" class="hidden"/>
+                        <input type="radio" formControlName="status" value="invitation received" class="hidden"/>
                         <span class="label"></span> Invitation received
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" [name]="'status'+i" value="paper sent" [(ngModel)]="accessor.status" class="hidden"/>
+                        <input type="radio" formControlName="status" value="paper sent" class="hidden"/>
                         <span class="label"></span> Papers sent
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" [name]="'status'+i" value="paper received" [(ngModel)]="accessor.status" class="hidden"/>
+                        <input type="radio" formControlName="status" value="paper received" class="hidden"/>
                         <span class="label"></span> Paper received
                     </label><br />
                    <!-- <input class="" type="radio" [name]="'status'+i" value="invitation received" [(ngModel)]="accessor.status"/><span class="text-white ctrl-font ml-2">Invitation received</span> <br><br>
@@ -44,15 +56,30 @@
                     <input class="" type="radio" [name]="'status'+i" value="paper received" [(ngModel)]="accessor.status"/> <span class="text-white ctrl-font ml-2">Paper received</span> <br><br>
                     <p class="text-white">{{accessor.status}}</p> -->
                 </div>
-                
-                <div *ngIf="(accessor.status == 'invitation received')">
-                    <button class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(accessor._id)">Send Papers</button>
+                <mat-card *ngIf="isLoading" 
+                    style="display: flex; background-color: #00042c; justify-content: center; align-items: center">
+                    <mat-progress-spinner 
+                    color="primary" 
+                    mode="indeterminate">
+                    </mat-progress-spinner>
+                </mat-card>
+                <div *ngIf="(getStatus(i) == 'invitation sent')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="acceptInvitation(getAccessorId(i))">Accept Invitation</button>
                 </div>
-                <div *ngIf="(accessor.status == 'paper received' && !accessor.approved)">
-                    <button class="ml-3 px-4 py-3 approved-btn" (click)="approveCandidate(accessor._id)">Approved</button>
-                    <button class="ml-3 px-4 py-3 disproved-btn" (click)="disproveCandidate(accessor._id)">Disproved</button>
+
+                <div *ngIf="(getStatus(i) == 'invitation received')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(getAccessorId(i))">Send Papers</button>
                 </div>
-                <div *ngIf="(accessor.approved)">
+
+                <div *ngIf="(getStatus(i) == 'paper sent')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="verifyPapers(getAccessorId(i))">Paper Received</button>
+                </div>
+
+                <div *ngIf="(getStatus(i) == 'paper received' && !access.approved)">
+                    <button type="button" class="ml-3 px-4 py-3 approved-btn" (click)="approveCandidate(getAccessorId(i))">Approved</button>
+                    <button type="button" class="ml-3 px-4 py-3 disproved-btn" (click)="disproveCandidate(getAccessorId(i))">Disproved</button>
+                </div>
+                <div *ngIf="(access.approved)">
                     <span><mat-icon [ngStyle]="{'color': '#33ff33'}" >verified_user</mat-icon> <span class="font-weight-bold pb-2 text-success">Approved</span></span>
                 </div>
                 <!-- <div *ngIf="(!accessor.approved)">
@@ -62,8 +89,10 @@
         </div>
     </div>
     
+    <!-- <button  class="save-btn py-3 px-5 ml-4 mr-5" type="button" (click)="getAccessorId(i)">gett Value</button>  -->
+
     <div class="text-right py-5">
-        <button  class="save-btn py-3 px-5 ml-4 mr-5" type="submit" (click)="saveUpdate()">save and continue</button> 
+        <button  class="save-btn py-3 px-5 ml-4 mr-5" type="submit">save and continue</button> 
     </div>
 </form>
 </div>

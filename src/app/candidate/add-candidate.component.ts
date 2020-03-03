@@ -227,6 +227,7 @@ export class AddCandidateComponent implements OnInit{
             accessorname:  ['', Validators.required],
             accessoremail:  ['', Validators.required],
             university:  ['', Validators.required],
+            phone: ['', Validators.required],
             status: 'invitation sent'
         })
     }
