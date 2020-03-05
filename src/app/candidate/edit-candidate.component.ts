@@ -5,7 +5,6 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // import { PusherService } from '../pusher.service';
 
-
 @Component({
     templateUrl: './edit-candidate.component.html',
     styles: [`
@@ -124,9 +123,7 @@ export class EditComponent implements OnInit{
     public EditCan : FormGroup;
     public candidate;
     public accessors = [];
-    public accessorStatus = [
-        'invitation sent', 'invitation received', 'paper sent', 'paper received'
-    ];
+    public accessorStatus = ['invitation sent', 'invitation received', 'paper sent', 'paper received'];
     public message;
     public isLoading = false;
     public isNotTimedout = false;
@@ -160,15 +157,12 @@ export class EditComponent implements OnInit{
             // data.accessor.map(element => {
             //     this.accessors.push(element);
             // });
-
             data.accessor.forEach(element => {
                 this.accessor.push(this.fb.group(element));
                 console.log(element);
             })
-
             // console.log(this.accessors[0].name, this.accessors[1].name);
             // console.log(this.accessors)
-
         })
     }
     acceptInvitation(accessorId){
@@ -190,7 +184,7 @@ export class EditComponent implements OnInit{
             }
         })
     }
-
+    
     sendPapers(accessorId){
         this.isLoading = true;
         let id = this.route.snapshot.params['id'];
@@ -267,7 +261,6 @@ export class EditComponent implements OnInit{
     //     this.router.onSameUrlNavigation = 'reload';
     //     this.router.navigate([`/edit-candidate/${candidateId}`]);
     // }
-
     getAccessorId(i){
         // console.log(this.getControls()[i].value._id)
         return this.getControls()[i].value._id;
@@ -278,7 +271,5 @@ export class EditComponent implements OnInit{
     }
     getControls(){
         return (<FormArray>this.EditCan.get('accessor')).controls;
-    }
-    
+    }   
 }
-
