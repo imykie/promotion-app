@@ -1,0 +1,60 @@
+.edit{
+    min-height: 100vh;
+    background-color: #00042c;
+}
+.form-control {
+    display: block;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    border: 1px solid #bbb;
+    border-radius: 0;
+}
+.form-control:focus{
+    background-color: #fff;
+    color: #000;
+}
+.ctrl-bg{
+    background-color: transparent;
+    width: 500px;
+}
+.save-btn{
+    background-color: #5A14E6;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.save-btn:hover{
+   background-color: #3b0a9e
+}
+.cancel-btn{
+   background-color: #bb0e0e;
+   border: 0;
+   outline: 0;
+   color: #fff;
+   font-size: 14px;
+   transition: 0.3s;
+}
+.cancel-btn:hover{
+  background-color: #990a0a;
+}
+/* .mat-tab-label {
+    padding: 5px;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 700;
+} */
+.mat-tab-labels, .mat-tab-label, .mat-tab-link {
+    color: white;
+    font-size: 16px;
+    background-color: #804A71;
+  }
+  
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: white;
+    height: 5px; 
+  }

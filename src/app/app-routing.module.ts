@@ -8,6 +8,8 @@ import { EditComponent } from './candidate/edit-candidate.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { VerifyInviteComponent }from './verify-invite/verify-invite.component';
 import { VerifyPapersComponent }from './verify-papers/verify-papers.component';
+import { DepartmentsComponent } from './departments/departments.component';
+
 import { AuthGuard } from './auth.guard';
 
 
@@ -22,7 +24,8 @@ const routes: Routes = [
   {path: 'edit-candidate/:id', component: EditComponent, canActivate : [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate : [AuthGuard]},
   {path: 'verify-invite/:id', component: VerifyInviteComponent, canActivate : [AuthGuard]},
-  {path: 'verify-papers/:id', component: VerifyPapersComponent, canActivate : [AuthGuard]}
+  {path: 'verify-papers/:id', component: VerifyPapersComponent, canActivate : [AuthGuard]},
+  {path: 'departments', component: DepartmentsComponent, canActivate : [AuthGuard]}
 ];
 
 @NgModule({

@@ -71,8 +71,6 @@ export class PortalService {
      let url = `${this.baseUrl}/verify-invite/${id}?accessorId=${accessorId}`;
      return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
    }
-
-
    sendPapers(id, accessorId): Observable<any>{
     let url = `${this.baseUrl}/send-papers/${id}?accessorId=${accessorId}`;
     return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
@@ -82,19 +80,33 @@ export class PortalService {
     let url = `${this.baseUrl}/verify-papers/${id}?accessorId=${accessorId}`;
     return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
    }
+   returnPapers(id, accessorId): Observable<any>{
+    let url = `${this.baseUrl}/return-publication/${id}?accessorId=${accessorId}`;
+    return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+   }
    notifications(){
     return this.http.get(`${this.baseUrl}/notifications`);
    }
-
    notificationsDash(){
     return this.http.get(`${this.baseUrl}/notifications-dash`);
    }
-
+   getFaculties(){
+    return this.http.get(`${this.baseUrl}/departments`);
+   }
+   addDepartment(id, data): Observable<any>{
+    let url = `${this.baseUrl}/add-department/${id}`;
+    return this.http.put(url, data, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+   }
+   removeDepartment(id, departmentId): Observable<any>{
+    let url = `${this.baseUrl}/remove-department/${id}?dep_id=${departmentId}`;
+    return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
+   }
    finalStatus(id, accessorId, status):Observable<any>{
     let url = `${this.baseUrl}/final-status/${id}?accessorId=${accessorId}&status=${status}`;
     return this.http.put(url, {headers:this.headers}).pipe(catchError(this.errorMgmt));
    }
-   
+
+
    errorMgmt(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {

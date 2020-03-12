@@ -44,10 +44,10 @@
                  </div>
                  <div class="mx-auto">
                     <div class="form-group selectCenter">
-                        <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeFaculty($event.target.value)" formControlName="fac"
-                        [ngClass]="{'is-invalid':(AddCandidate.get('fac').touched || AddCandidate.get('fac').dirty) && !AddCandidate.get('fac').valid}">
+                        <select class="custom-select form-control ctrl-bg mx-auto" (change)="onSelectFaculties($event.target.value)" formControlName="fac"
+                          [ngClass]="{'is-invalid':(AddCandidate.get('fac').touched || AddCandidate.get('fac').dirty) && !AddCandidate.get('fac').valid}">
                         <option value="" disabled>Choose Faculty...</option>
-                            <option *ngFor="let faculty of Faculty" value="{{faculty}}">{{faculty}}</option>
+                            <option *ngFor="let faculty of faculties | sorting: ['+name']" value="{{faculty.name}}">{{faculty.name}}</option>
                         </select>
                         <span class="invalid-feedback">
                             <span *ngIf="AddCandidate.get('fac').errors?.required">
@@ -60,7 +60,7 @@
                             <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeDepartment($event.target.value)" formControlName="dep"
                             [ngClass]="{'is-invalid':(AddCandidate.get('dep').touched || AddCandidate.get('dep').dirty) && !AddCandidate.get('dep').valid}">
                             <option value="" disabled>Choose Department.</option>
-                                <option *ngFor="let department of Department" value="{{department}}">{{department}}</option>
+                                <option *ngFor="let department of departments | sorting: ['+name']" value="{{department.name}}">{{department.name}}</option>
                             </select>
                             <span class="invalid-feedback">
                                 <span *ngIf="AddCandidate.get('dep').errors?.required">
@@ -68,14 +68,12 @@
                                 </span>
                               </span>
                     </div>
-                        
-            
-            
+                    
                     <div class="form-group selectCenter">
                             <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeLevel($event.target.value)" formControlName="lev"
                             [ngClass]="{'is-invalid':(AddCandidate.get('dep').touched || AddCandidate.get('dep').dirty) && !AddCandidate.get('dep').valid}">
                             <option value="" disabled>Choose Level...</option>
-                                <option *ngFor="let level of Level" value="{{level}}">{{level}}</option>
+                                <option *ngFor="let level of Level | sorting: ['+name']" value="{{level}}">{{level}}</option>
                             </select>
                             <span class="invalid-feedback">
                                 <span *ngIf="AddCandidate.get('dep').errors?.required">
@@ -95,15 +93,15 @@
             <hr class="bg-light w-90" />
         </div> -->
         <div class="cont-w mx-auto mt-5">
-            <h4 class="text-white font-weight-lighter mb-4">Add Accessors</h4>
+            <h4 class="text-white font-weight-lighter mb-4">Add Assessors</h4>
                 <div formArrayName="accessor" *ngFor="let access of accessor.controls; let i=index">
                     <div  [formGroupName]="i">
                                     <div class="mt-3">
-                                        <input class="form-control ctrl-bg mx-auto" type="text" id="{{ 'accessId' + i }}" placeholder="Accessor name" formControlName="accessorname"
+                                        <input class="form-control ctrl-bg mx-auto" type="text" id="{{ 'accessId' + i }}" placeholder="Assessor name" formControlName="accessorname"
                                         [ngClass]="{'is-invalid':(access.get('accessorname').touched || access.get('accessorname').dirty) && !access.get('accessorname').valid}">
                                         <span class="invalid-feedback">
                                             <span *ngIf="access.get('accessorname').errors?.required">
-                                              Please enter the candidate's Accessor Name
+                                              Please enter the candidate's Assessor Name
                                             </span>
                                           </span> 
                                     </div>
@@ -112,7 +110,7 @@
                                         [ngClass]="{'is-invalid':(access.get('accessoremail').touched || access.get('accessoremail').dirty) && !access.get('accessoremail').valid}">
                                         <span class="invalid-feedback">
                                             <span *ngIf="access.get('accessoremail').errors?.required">
-                                              Please enter the candidate's Accessor Email
+                                              Please enter the candidate's Assessor Email
                                             </span>
                                           </span>
                                     </div>
@@ -126,7 +124,7 @@
                                         [ngClass]="{'is-invalid':(access.get('university').touched || access.get('university').dirty) && !access.get('university').valid}">
                                         <span class="invalid-feedback">
                                             <span *ngIf="access.get('university').errors?.required">
-                                              Please enter the Accessor's University
+                                              Please enter the Assessor's University
                                             </span>
                                           </span>
                                 </div>
@@ -172,7 +170,7 @@
 
                 <div class="mt-4 mb-5">
                         <div class="text-center">
-                                <button [hidden]="accessor.length >= 3" type="button" class="add-accessor py-3 px-5" (click)="addAccessors()">Add Another Accessor </button>
+                                <button [hidden]="accessor.length >= 3" type="button" class="add-accessor py-3 px-5" (click)="addAccessors()">Add Another Assessor </button>
                         </div>
                 </div> 
                     

@@ -17,9 +17,11 @@ import { EditComponent } from './candidate/edit-candidate.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { VerifyInviteComponent } from './verify-invite/verify-invite.component';
 import { VerifyPapersComponent } from './verify-papers/verify-papers.component';
+import { DepartmentsComponent } from './departments/departments.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth.guard';
 import { Firstletter } from './firstletter.pipe';
+import { SortingPipe } from './pipes/sorting.pipe';
 
 
 
@@ -35,7 +37,9 @@ import { Firstletter } from './firstletter.pipe';
     NotificationsComponent,
     VerifyInviteComponent,
     VerifyPapersComponent,
-    Firstletter
+    DepartmentsComponent,
+    Firstletter,
+    SortingPipe,
   ],
   imports: [
     BrowserModule,

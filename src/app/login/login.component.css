@@ -1,36 +1,9 @@
+.login{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 .portal{
-    position: absolute;
-    width: 400px;
-    height: 300px;
-    z-index: 15;
-    top: 50%;
-    left: 50%;
-    margin: -100px 0 0 -190px;
-}
-
-.portal2{
-    position: absolute;
-    width: 250px;
-    height: 150px;
-    z-index: 15;
-    top: 23%;
-    left:57%;
-    margin: -100px 0 0 -190px;
-  }
-
-h3{
-    color: gray;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
-}
-h2{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
-    color: black;
-}
-form{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    width: 320px;
+    height: 240px;
 }
 em{
     color: red;

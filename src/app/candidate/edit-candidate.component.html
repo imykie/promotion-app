@@ -18,39 +18,38 @@
             <div [formGroupName]="i">
                 <div>
                     <div class="form-group">
-                        <input class="form-control mt-3" type="text"  formControlName="accessorname" />
+                        <input class="form-control mt-3" type="text"  placeholder="Name" formControlName="accessorname" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control mt-3" type="email"  formControlName="accessoremail" />
+                        <input class="form-control mt-3" type="email"  placeholder="Email" formControlName="accessoremail" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control mt-3" type="text"  formControlName="university" />
+                        <input class="form-control mt-3" type="text"  placeholder="University" formControlName="university" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control mt-3" type="text"  formControlName="phone" />
+                        <input class="form-control mt-3" type="number"  placeholder="Phone" formControlName="phone" />
                     </div>
-                    <!-- <input class="form-control mt-3" type="text"  value="{{accessor.accessorname}}" />
-                    <input class="form-control mt-3" type="text" value="{{accessor.university}}"/>
-                    <input class="form-control mt-3" type="text" value="{{accessor.accessoremail}}"/>
-                    <input class="form-control mt-3" type="text" value="{{accessor.status}}" /><br><br> -->
-
-                    <!-- <input class="" type="radio" [name]="'status'+i" value="invitation sent" [(ngModel)]="accessor.status"/><span class="text-white ctrl-font ml-2">invitation sent</span> <br><br> -->
                     <label for="opt1" class="radio text-left text-white">
                         <input type="radio" formControlName="status" value="invitation sent" class="hidden"/>
                         <span class="label"></span> Invitation sent
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" formControlName="status" value="invitation received" class="hidden"/>
-                        <span class="label"></span> Invitation received
+                        <input type="radio" formControlName="status" value="invitation accepted" class="hidden"/>
+                        <span class="label"></span> Invitation accepted
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" formControlName="status" value="paper sent" class="hidden"/>
-                        <span class="label"></span> Papers sent
+                        <input type="radio" formControlName="status" value="publication sent" class="hidden"/>
+                        <span class="label"></span> Publication sent
                     </label><br />
                     <label for="opt1" class="radio text-left text-white">
-                        <input type="radio" formControlName="status" value="paper received" class="hidden"/>
-                        <span class="label"></span> Paper received
+                        <input type="radio" formControlName="status" value="publication received" class="hidden"/>
+                        <span class="label"></span> Publication received
+                    </label><br />  
+                    <label for="opt1" class="radio text-left text-white">
+                        <input type="radio" formControlName="status" value="publication returned" class="hidden"/>
+                        <span class="label"></span> Publication returned
                     </label><br />
+                    
                    <!-- <input class="" type="radio" [name]="'status'+i" value="invitation received" [(ngModel)]="accessor.status"/><span class="text-white ctrl-font ml-2">Invitation received</span> <br><br>
                     <input class="" type="radio" [name]="'status'+i" value="paper sent" [(ngModel)]="accessor.status"/> <span class="text-white ctrl-font ml-2">Paper sent</span><br><br>
                     <input class="" type="radio" [name]="'status'+i" value="paper received" [(ngModel)]="accessor.status"/> <span class="text-white ctrl-font ml-2">Paper received</span> <br><br>
@@ -67,22 +66,25 @@
                     <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="acceptInvitation(getAccessorId(i))">Accept Invitation</button>
                 </div>
 
-                <div *ngIf="(getStatus(i) == 'invitation received')">
-                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(getAccessorId(i))">Send Papers</button>
+                <div *ngIf="(getStatus(i) == 'invitation accepted')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="sendPapers(getAccessorId(i))">Publication Sent</button>
                 </div>
 
-                <div *ngIf="(getStatus(i) == 'paper sent')">
-                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="verifyPapers(getAccessorId(i))">Paper Received</button>
+                <div *ngIf="(getStatus(i) == 'publication sent')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="verifyPapers(getAccessorId(i))">Publication Received</button>
+                </div>
+                <div *ngIf="(getStatus(i) == 'publication received')">
+                    <button type="button" class="save-btn py-3 px-5 mx-auto" (click)="returnPapers(getAccessorId(i))">Publication returned</button>
                 </div>
 
-                <div *ngIf="(getStatus(i) == 'paper received' && !access.approved)">
+                <!-- <div *ngIf="(getStatus(i) == 'paper received' && !getApproved(i))">
                     <button type="button" class="ml-3 px-4 py-3 approved-btn" (click)="approveCandidate(getAccessorId(i))">Approved</button>
                     <button type="button" class="ml-3 px-4 py-3 disproved-btn" (click)="disproveCandidate(getAccessorId(i))">Disproved</button>
                 </div>
-                <div *ngIf="(access.approved)">
+                <div *ngIf="(getApproved(i))">
                     <span><mat-icon [ngStyle]="{'color': '#33ff33'}" >verified_user</mat-icon> <span class="font-weight-bold pb-2 text-success">Approved</span></span>
-                </div>
-                <!-- <div *ngIf="(!accessor.approved)">
+                </div> -->
+                <!-- <div *ngIf="(getStatus(i) == 'paper received' && !getApproved(i))">
                     <span><mat-icon class="pt-3" [ngStyle]="{'color': '#EB3941'}" >clear</mat-icon> <span class="font-weight-bold pb-2 text-danger">Disproved</span></span>
                 </div> -->
             </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PortalService } from '../portal.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { Observable, interval, Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // import { PusherService } from '../pusher.service';
 
@@ -127,6 +128,8 @@ export class EditComponent implements OnInit{
     public message;
     public isLoading = false;
     public isNotTimedout = false;
+    private navigationSubscription;
+    private updateSubscription: Subscription;   
 
     get accessor(): FormArray{
         return <FormArray>this.EditCan.get('accessor');
@@ -135,7 +138,6 @@ export class EditComponent implements OnInit{
         private route : ActivatedRoute, private fb: FormBuilder,
         private router : Router
         ){
-            this.candidate = this.route.snapshot.data['candidate']
     }
 
     ngOnInit(){
@@ -147,6 +149,7 @@ export class EditComponent implements OnInit{
         this.EditCan = this.fb.group({
             accessor: this.fb.array([])
         });
+
         console.log("logging... "+this.EditCan.value)
     }
 
@@ -179,7 +182,7 @@ export class EditComponent implements OnInit{
 
                 setTimeout(() => {
                     this.isNotTimedout = false;
-                    // this.ngOnInit();
+                    this.ngOnInit();
                 }, 10000);
             }
         })
@@ -199,6 +202,7 @@ export class EditComponent implements OnInit{
 
                 setTimeout(() => {
                     this.isNotTimedout = false;
+                    this.ngOnInit();
                     // this.reloadComponent(id);
                 }, 10000);
             }
@@ -219,34 +223,57 @@ export class EditComponent implements OnInit{
 
                 setTimeout(() => {
                     this.isNotTimedout = false;
+                    this.ngOnInit();
+
                 }, 10000);
             }
         })
     }
 
-    approveCandidate(accessorId){
+    returnPapers(accessorId){
+        this.isLoading = true;
         let id = this.route.snapshot.params['id'];
-        this.portalService.finalStatus(id, accessorId, true).subscribe(data => {
+        this.portalService.returnPapers(id, accessorId).subscribe(data => {
             if(!data){
                 console.log("Something went wrong");
             }else{
                 console.log(data);
-                alert(data.message);
+                this.isLoading = false;
+                this.isNotTimedout = true;
+                this.message = data.message;
+
+                setTimeout(() => {
+                    this.isNotTimedout = false;
+                    this.ngOnInit();
+
+                }, 10000);
             }
         })
     }
 
-    disproveCandidate(accessorId){
-        let id = this.route.snapshot.params['id'];
-        this.portalService.finalStatus(id, accessorId, false).subscribe(data => {
-            if(!data){
-                console.log("Something went wrong");
-            }else{
-                console.log(data);
-                alert(data.message);
-            }
-        })
-    }
+    // approveCandidate(accessorId){
+    //     let id = this.route.snapshot.params['id'];
+    //     this.portalService.finalStatus(id, accessorId, true).subscribe(data => {
+    //         if(!data){
+    //             console.log("Something went wrong");
+    //         }else{
+    //             console.log(data);
+    //             alert(data.message);
+    //         }
+    //     })
+    // }
+
+    // disproveCandidate(accessorId){
+    //     let id = this.route.snapshot.params['id'];
+    //     this.portalService.finalStatus(id, accessorId, false).subscribe(data => {
+    //         if(!data){
+    //             console.log("Something went wrong");
+    //         }else{
+    //             console.log(data);
+    //             alert(data.message);
+    //         }
+    //     })
+    // }
 
     saveUpdate(){
         let id = this.route.snapshot.paramMap.get('id')
@@ -255,14 +282,10 @@ export class EditComponent implements OnInit{
             console.log(data)
         })        
     }
-
-    // reloadComponent(candidateId) {
-    //     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    //     this.router.onSameUrlNavigation = 'reload';
-    //     this.router.navigate([`/edit-candidate/${candidateId}`]);
-    // }
+    getApproved(i){
+        return this.getControls()[i].value.approved;
+    }
     getAccessorId(i){
-        // console.log(this.getControls()[i].value._id)
         return this.getControls()[i].value._id;
     }
     getStatus(i){

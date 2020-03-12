@@ -1,32 +1,30 @@
-<div class="portal2">
-  <img src="/assets/oau.jpg" alt="Oau Logo">
+<div class="bg-white login">
+  <div class="portal2 mx-auto text-center">
+    <img src="/assets/oau.jpg" class="pt-5 my-4" alt="Oau Logo">
+  </div>
+  
+  <div class="portal text-center mx-auto">
+      <h3 class="text-dark"> Welcome to A & PC Portal </h3>
+        <form #Portal="ngForm" (ngSubmit)="Login(Portal.value)" novalidate>
+          <div class="form-group">
+            <em *ngIf="Portal.controls.username?.invalid && (Portal.controls.username?.touched || mouseoverLogin)">Required..</em>
+            <input type="text" class="form-control" placeholder="username" name="username" (ngModel)="username" required>
+          </div>
+          <div class="form-group">
+              <em *ngIf="Portal.controls.password?.invalid && (Portal.controls.password?.touched || mouseoverLogin)">Required..</em>
+              <input type="password" class="form-control" placeholder="Password" name="password" (ngModel)="password" required>
+          </div>
+          <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-md btn-block" [disabled]="Portal.invalid"> Sign In</button>
+          </div>
+        </span>
+        <div *ngIf="InvalidLogin" class="alert alert-danger">
+          Invalid Username and Password
+        </div>
+        </form>
+  </div>
 </div>
 
-<div class="portal">
-    <h2>
-        Welcome to A & PC Portal
-      </h2>
-      <h3>
-        Sign In
-      </h3>
-      <form #Portal="ngForm" (ngSubmit)="Login(Portal.value)" novalidate>
-        <div class="form-group">
-          <em *ngIf="Portal.controls.username?.invalid && (Portal.controls.username?.touched || mouseoverLogin)">Required..</em>
-          <input type="text" class="form-control" placeholder="username" name="username" (ngModel)="username" required>
-        </div>
-        <div class="form-group">
-            <em *ngIf="Portal.controls.password?.invalid && (Portal.controls.password?.touched || mouseoverLogin)">Required..</em>
-            <input type="password" class="form-control" placeholder="Password" name="password" (ngModel)="password" required>
-        </div>
-        <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-md btn-block" [disabled]="Portal.invalid"> Sign In</button>
-        </div>
-      </span>
-      <div *ngIf="InvalidLogin" class="alert alert-danger">
-        Invalid Username and Password
-      </div>
-      </form>
-</div>
 
 

@@ -1,0 +1,52 @@
+<nav-bard></nav-bard>
+<div class="py-5 edit">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Add Department"> 
+        <div class="pt-4">
+          <div class="form-group selectCenter">
+            <select class="custom-select form-control ctrl-bg mx-auto" (change)="onSelectFaculties($event.target.value)" placeholder="Select Faculty">
+            <option value="">Choose Faculty...</option>
+                <option *ngFor="let faculty of faculties | sorting: ['+name']" value="{{faculty.name}}">{{faculty.name}}</option>
+                {{faculties}}{{message}}
+            </select>
+          </div>
+          <div class="form-group selectCenter">
+            <input type="text" class="form-control ctrl-bg mx-auto" placeholder="Type the name of department you want to delete" [(ngModel)]="depName" />
+          </div>
+          <div class="mx-auto">
+            <div class="py-5 text-center">
+              <button type="submit" (click)="addDepartment()" class="save-btn py-3 px-5 ml-4 mr-5">Add Department</button>
+            </div>
+            <div class="mx-auto text-center" *ngIf="showMessage">
+              <h3 class="font-weight-lighter text-white text-center">{{message}}</h3>
+            </div>
+          </div>
+        </div>  
+      </mat-tab>
+      <mat-tab label="Remove Department"> 
+        <div class="pt-4">
+          <div class="form-group selectCenter">
+            <select class="custom-select form-control ctrl-bg mx-auto" (change)="onSelectFaculties($event.target.value)" placeholder="Select Faculty">
+            <option value="">Choose Faculty...</option>
+                <option *ngFor="let faculty of faculties | sorting: ['+name']" value="{{faculty.name}}">{{faculty.name}}</option>
+                {{faculties}}{{message}}
+            </select>
+          </div>
+          <div class="form-group selectCenter">
+            <select class="custom-select form-control ctrl-bg mx-auto" (change)="changeDepartment($event.target.value)">
+            <option value="">Choose Department.</option>
+                <option *ngFor="let department of departments | sorting: ['+name']" value="{{department.name}}">{{department.name}}</option>
+            </select>
+          </div>
+          <div class="mx-auto">
+            <div class="py-5 text-center">
+              <button type="button" (click)="deleteDepartment()" class="cancel-btn py-3 px-5">Remove Department</button>
+            </div>
+            <div class="mx-auto text-center" *ngIf="showMessage">
+              <h3 class="font-weight-lighter text-white text-center">{{rmvMessage}}</h3>
+            </div>
+          </div>
+        </div> 
+      </mat-tab>
+    </mat-tab-group>
+</div>

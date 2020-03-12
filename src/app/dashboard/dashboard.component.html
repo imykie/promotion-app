@@ -4,7 +4,7 @@
     <div class="general">
         <div class="notifications-list mt-5 mb-4 pb-4">
           <div class="ml-4 ml-md-4 pl-md-3 ml-lg-5 pl-lg-4">
-            <h3 class="font-weight-lighter text-white ">Notifications</h3>
+            <h5 class="text-white text-uppercase">Recent Notifications</h5>
             <mat-card *ngIf="notifyLoading" 
                 style="display: flex; background-color: #00042c; justify-content: center; align-items: center">
                 <mat-progress-spinner 
@@ -28,6 +28,9 @@
           </div>
           </div>
         <div class="candidate lists">
+          <div class="ml-4 ml-md-4 pl-md-3 ml-lg-5 pl-lg-4">
+            <h5 class="text-white text-uppercase">Recent Entries</h5>
+          </div>
           <div class="mt-3">
               <div class="ctrl-w mx-auto mr-4 bg-light px-3 mb-3">
                 <!-- <mat-form-field>
@@ -43,7 +46,7 @@
                 </mat-progress-spinner>
               </mat-card>
         
-                <div class="mat-elevation-z8">
+                <div class="mat-elevation-z8 pb-5">
                     <table mat-table [dataSource]="dataSource">
                   
                       <!-- Position Column -->
