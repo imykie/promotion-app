@@ -15,7 +15,7 @@ background-color: #00042c;
 
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
 background: #fff;
-height: 3px;
+height: 2px;
 margin-bottom: 2px; 
 
 }

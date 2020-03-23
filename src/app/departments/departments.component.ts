@@ -27,8 +27,6 @@ export class DepartmentsComponent implements OnInit {
     this.getFaculties();
   }
 
-  
-
 getFaculties(){
     this.portalService.getFaculties().subscribe(data => {
         if(data){
@@ -64,7 +62,7 @@ deleteDepartment(){
   this.portalService.removeDepartment(fac_Id, dep_id).subscribe((data) => {
     if (data.success) {
       this.showMessage = true;
-      this.rmvMessage = `${this.departmentName} has been removed from faculty of${this.facultyName} successfully`;
+      this.rmvMessage = `${this.departmentName} has been removed from faculty of ${this.facultyName} successfully`;
       console.log(data);
       setTimeout(() => {
         this.showMessage = false
